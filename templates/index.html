@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
 </head>
 <body>
-<h1>Template Working</h1>
+<h1>{{ title }} Working</h1>
+
+{%  for obj in object_list %}
+{{ obj.title }}<br>
+{{ obj.context }}<br>
+{{ obj.timestamp }}<br>
+{{ obj.updated }}<br>
+{{ obj.id }}<br>
+{% endfor %}
 </body>
 </html>
