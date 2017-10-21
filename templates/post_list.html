@@ -2,16 +2,23 @@
 
 {% block content%}
 
+<div class="col-sm-6 col-sm-offset-3">
     <h1>{{ title }} Working</h1>
 
-
     {%  for obj in object_list %}
-    {{ obj.id }}<br>
-    <a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a><br>
-    {{ obj.context }}<br>
-    {{ obj.timestamp }}<br>
-    {{ obj.updated }}<br>
-
+    <div class="row">
+            <div class="col-sm-6 ">
+              <div class="thumbnail">
+                <!--<img src="http://placehold.it/500x300" alt="">-->
+                  <div class="caption">
+                    <h4><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> <small>{{ obj.timestamp|timesince }} ago</small> </h4>
+                    <p>{{ obj.context|linebreaks|truncatechars:120 }}</p>
+                    <p><a href="{{ obj.get_absolute_url }}" class="btn btn-info btn-xs" role="button">View</a> </p>
+                </div>
+              </div>
+            </div>
+    </div>
     {% endfor %}
 
+</div>
 {% endblock content %}
