@@ -3,13 +3,18 @@
 {% block content%}
 
 <div class="col-sm-6 col-sm-offset-3">
-    <h1>{{ title }} Working</h1>
-
+    <h1>{{ title }} </h1>
+<form method="get" action="">
+    <input type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
+    <input type="submit" value="Search">
+</form>
     {%  for obj in object_list %}
     <div class="row">
             <div class="col-sm-6 ">
               <div class="thumbnail">
-                <!--<img src="http://placehold.it/500x300" alt="">-->
+                  {% if obj.image %}
+                  <img src="{{ obj.image.url }}" class="img-responsive"/>
+                  {% endif %}
                   <div class="caption">
                     <h4><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a> <small>{{ obj.timestamp|timesince }} ago</small> </h4>
                     <p>{{ obj.context|linebreaks|truncatechars:120 }}</p>
@@ -18,7 +23,26 @@
               </div>
             </div>
     </div>
+    <hr/>
     {% endfor %}
+
+
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if object_list.has_previous %}
+                <a href="?page={{ object_list.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+            </span>
+
+            {% if object_list.has_next %}
+                <a href="?page={{ object_list.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
 
 </div>
 {% endblock content %}
